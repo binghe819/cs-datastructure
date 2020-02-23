@@ -33,6 +33,7 @@ void FInsert(List *plist, LData data)
     (plist->numOfData) += 1;
 }
 
+// 정렬을 사용한 삽입. head부터 하나하나 비교후 알맞는 위치에 넣는다.
 void SInsert(List *plist, LData data)
 {
     Node *newNode = (Node*)malloc(sizeof(Node)); // 새 노드 생성
