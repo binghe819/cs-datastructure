@@ -8,12 +8,13 @@ void MergeTwoArea(int arr[], int first, int mid, int last)
     int rightIdx = mid+1; // 두번째 영역에서의 첫번째 인덱스
     int i;
     
-    int (*sortedArr) = malloc(sizeof(int) * (last+1)); // 비교하고난 결과들을 저장해놓는 tmp배열.
-    int sortIdx = first; // tmp배열의 인덱스.
+    int (*sortedArr) = malloc(sizeof(int) * (last+1)); // 병합 한 결과를 담을 배열.
+    int sortIdx = first; // 병합 한 결과를 담을 배열의 인덱스.
     
-    // 분할한 두 영역을 하나하나 훑으면서 비교.
+    // 분할한 두 영역을 하나하나 훑으면서 비교. ( 병합 할 두 영역의 데이터들을 비교 )
     while(leftIdx <= mid && rightIdx <= last)
     {
+        // 정렬 순서대로 sortedArr에 하나씩 옮겨 담는다.
         if(arr[leftIdx] < arr[rightIdx]) // 첫번째 영역의 값이 더 작은 경우
         {
             sortedArr[sortIdx] = arr[leftIdx];
@@ -28,7 +29,7 @@ void MergeTwoArea(int arr[], int first, int mid, int last)
     }
     
     // 비교후 두 영역중 남은 숫자 대입.
-    if(leftIdx > mid)
+    if(leftIdx > mid) // 배열의 앞부분이 모두 sortedArr에 옮겨졌다면.
     {
         for(i = rightIdx; i <= last; i++)
         {
@@ -36,7 +37,7 @@ void MergeTwoArea(int arr[], int first, int mid, int last)
             sortIdx++;
         }
     }
-    else
+    else // 배열의 뒷부분이 모두 sortedArr에 옮겨졌다면.
     {
         for(i = leftIdx; i <= mid; i++)
         {
@@ -45,7 +46,7 @@ void MergeTwoArea(int arr[], int first, int mid, int last)
         }
     }
     
-    // tmp배열에서 원래 배열로 복사
+    // 정렬된 결과를 담은 배열에서 원래 배열로 복사
     for(i = first; i <= last; i++)
         arr[i] = sortedArr[i];
     
